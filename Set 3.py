@@ -69,4 +69,33 @@ def tic_tac_toe(board):
             
     return result
 
+def eta(first_stop, second_stop, legs):
 
+    list_counter = 0
+    stops = []
+    while list_counter < len(legs):
+        list_of_keys = list(legs.keys())
+        first_items_in_list = list_of_keys[list_counter][0]
+        stops.append(first_items_in_list)
+        list_counter += 1
+
+    travel_time = [legs[keys]["travel_time_mins"] for keys in legs]
+
+    if (first_stop,second_stop) in legs:
+        result = legs[(first_stop,second_stop)]["travel_time_mins"]    
+
+    elif stops.index(second_stop) == 0:
+        result = sum(travel_time[stops.index(first_stop):len(stops)])
+
+    elif stops.index(first_stop) == stops.index(second_stop):
+        result = sum(travel_time[0:len(stops)])
+
+    elif stops.index(first_stop) > stops.index(second_stop):
+        result = sum(travel_time[stops.index(first_stop):len(stops)]) + sum(travel_time[0:stops.index(second_stop)])
+
+    else:
+        result = sum(travel_time[stops.index(first_stop):stops.index(second_stop)])
+    
+    return result
+    
+eta("dlsu","admu")
